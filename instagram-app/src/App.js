@@ -9,7 +9,7 @@ function App() {
     <div>
       <SearchBar />
       {dummyData.map(e => (
-        <PostContainer />
+        <PostContainer {...e} key={e.id} />
       ))}
     </div>
   );
