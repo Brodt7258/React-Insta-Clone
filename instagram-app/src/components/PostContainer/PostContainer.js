@@ -1,16 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components/macro';
 
 import Post from './Post';
 import CommentSection from '../CommentSection/CommentSection';
 
+const Container = styled.section`
+  width: 50%;
+  margin: 2em auto;
+  border: 4px solid white;
+  box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.05);
+  background-color: white;
+`;
+
 const PostContainer = ({ comments, ...post }) => {
   return (
-    <div>
-      PostContainer
+    <Container>
       <Post {...post} />
       <CommentSection comments={comments} />
-    </div>
+    </Container>
   );
 };
 
