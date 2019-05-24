@@ -15,11 +15,11 @@ const Container = styled.section`
   background-color: white;
 `;
 
-const PostContainer = ({ comments, likes, timestamp, ...post }) => {
+const PostContainer = ({ comments, likes, timestamp, handleAddComment, ...post }) => {
   return (
     <Container>
       <Post {...post} />
-      <CommentSection {...{ comments, likes, timestamp }} />
+      <CommentSection {...{ comments, likes, timestamp, handleAddComment }} />
     </Container>
   );
 };
@@ -31,7 +31,8 @@ PostContainer.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   likes: PropTypes.number.isRequired,
   timestamp: PropTypes.string.isRequired,
-  comments: PropTypes.arrayOf(PropTypes.object).isRequired
+  comments: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleAddComment: PropTypes.func
 };
 
 export default PostContainer;

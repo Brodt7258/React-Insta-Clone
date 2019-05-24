@@ -10,12 +10,13 @@ const CommentInput = styled.input`
   font-size: 1.05em;
 `;
 
-const CommentForm = () => {
+const CommentForm = ({ handleAddComment }) => {
   const [commentText, setCommentText] = useState('');
 
   const handleSubmit = e => {
-    console.log(e.target);
     e.preventDefault();
+    console.log(commentText);
+    handleAddComment(commentText);
   }
 
   return (

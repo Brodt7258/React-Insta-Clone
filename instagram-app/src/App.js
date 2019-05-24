@@ -38,6 +38,23 @@ class App extends Component {
     });
   }
 
+  addComment = (postId) => (commentText) => {
+    const newComment = {
+      id: `${Date.now()}`,
+      username: 'testAccount',
+      text: commentText
+    };
+
+    this.setState(prevState => {
+      const postIndex = prevState.posts.findIndex(e => e.id === postId);
+      const newPosts = [ ...prevState.posts ];
+      newPosts[postIndex].comments = [ ...newPosts[postIndex].comments, newComment ];
+      return {
+        posts: newPosts
+      };
+    });
+  }
+
   render() {
     return (
       <>
@@ -45,7 +62,11 @@ class App extends Component {
         <SearchBar />
         {this.state.posts && 
           this.state.posts.map(e => (
-            <PostContainer {...e} key={e.id} />
+            <PostContainer
+              {...e}
+              key={e.id}
+              handleAddComment={this.addComment(e.id)}
+            />
           ))
         }
       </>

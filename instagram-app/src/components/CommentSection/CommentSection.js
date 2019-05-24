@@ -33,7 +33,7 @@ const TimeStamp = styled.p`
   color: #777;
 `;
 
-const CommentSection = ({ comments, likes, timestamp }) => {
+const CommentSection = ({ comments, likes, timestamp, handleAddComment }) => {
   return (
     <CommentsContainer>
       <Actions>
@@ -45,7 +45,7 @@ const CommentSection = ({ comments, likes, timestamp }) => {
         <Comment {...e} key={e.id} />
       ))}
       <TimeStamp>{timestamp}</TimeStamp>
-      <CommentForm />
+      <CommentForm handleAddComment={handleAddComment} />
     </CommentsContainer>
   );
 };
@@ -53,7 +53,8 @@ const CommentSection = ({ comments, likes, timestamp }) => {
 CommentSection.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.object).isRequired,
   likes: PropTypes.number.isRequired,
-  timestamp: PropTypes.string.isRequired
+  timestamp: PropTypes.string.isRequired,
+  handleAddComment: PropTypes.func
 };
 
 export default CommentSection;
