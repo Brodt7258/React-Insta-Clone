@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 
 const CommentInput = styled.input`
@@ -6,16 +6,25 @@ const CommentInput = styled.input`
   border: none;
   border-top: 1px solid #CCC;
   outline: none;
-  padding: 0.75em 0;
+  padding: 1em 0 0.25em;
   font-size: 1.05em;
 `;
 
 const CommentForm = () => {
+  const [commentText, setCommentText] = useState('');
+
+  const handleSubmit = e => {
+    console.log(e.target);
+    e.preventDefault();
+  }
+
   return (
-    <form action="">
+    <form action="" onSubmit={handleSubmit}>
       <CommentInput
         type="text"
         placeholder="Add a comment..."
+        value={commentText}
+        onChange={e => setCommentText(e.target.value)}
       />
     </form>
   );

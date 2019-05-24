@@ -8,6 +8,7 @@ import CommentSection from '../CommentSection/CommentSection';
 const Container = styled.section`
   width: 50%;
   min-width: 550px;
+  max-width: 800px;
   margin: 2em auto;
   border: 4px solid white;
   box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.05);

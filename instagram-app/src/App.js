@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { createGlobalStyle } from 'styled-components';
 
 import dummyData from './dummy-data';
@@ -27,16 +27,31 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const App = () => {
-  return (
-    <>
-      <GlobalStyle />
-      <SearchBar />
-      {dummyData.map(e => (
-        <PostContainer {...e} key={e.id} />
-      ))}
-    </>
-  );
+class App extends Component {
+  state = {
+    posts: []
+  };
+
+  componentDidMount() {
+    this.setState({
+      posts: dummyData
+    });
+  }
+
+  render() {
+    return (
+      <>
+        <GlobalStyle />
+        <SearchBar />
+        {this.state.posts && 
+          this.state.posts.map(e => (
+            <PostContainer {...e} key={e.id} />
+          ))
+        }
+      </>
+    );
+  }
+  
 };
 
 export default App;
