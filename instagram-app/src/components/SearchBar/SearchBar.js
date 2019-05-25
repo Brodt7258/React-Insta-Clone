@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 import { Instagram } from 'styled-icons/boxicons-logos';
 import { Compass } from 'styled-icons/typicons/Compass';
@@ -53,14 +54,14 @@ const Profile = styled(User)`
   width: 2em;
 `;
 
-const SearchBar = () => {
+const SearchBar = ({ searchCtrls }) => {
   return (
     <Header>
       <BrandContainer>
         <Logo />
         <h1>Instagram</h1>
       </BrandContainer>
-      <SearchForm />
+      <SearchForm {...searchCtrls} />
       <NavMenu>
         <Discover />
         <Activity />
@@ -68,6 +69,10 @@ const SearchBar = () => {
       </NavMenu>
     </Header>
   );
+};
+
+SearchBar.propTypes = {
+  searchCtrls: PropTypes.object
 };
 
 export default SearchBar;

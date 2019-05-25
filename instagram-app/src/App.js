@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { createGlobalStyle } from 'styled-components';
+import debounce from 'lodash/debounce';
+import Fuse from 'fuse.js';
 
 import dummyData from './dummy-data';
 import PostContainer from './components/PostContainer/PostContainer';
@@ -29,7 +31,9 @@ const GlobalStyle = createGlobalStyle`
 
 class App extends Component {
   state = {
-    posts: []
+    posts: [],
+    searchText: '',
+    searchResults: [],
   };
 
   componentDidMount() {
@@ -55,13 +59,46 @@ class App extends Component {
     });
   }
 
+  searchHandler = debounce(() => {
+    const { posts } = this.state;
+
+    const options = {
+      threshold: 0.4,
+      keys: [
+        'username'
+      ]
+    };
+
+    const fuse = new Fuse(posts, options);
+
+    // const result = fuse.search('phil');
+
+    // console.log(result);
+    // this.setState(state => ({
+    //   debounceFired: state.debounceFired + 1
+    // }))
+
+    this.setState(({ searchText }) => ({
+      searchResults: fuse.search(searchText)
+    }));
+  }, 1000)
+
+  handleSearchText = (e) => {
+    this.setState({
+      searchText: e.target.value
+    }, 
+      this.searchHandler()
+    );
+  }
+
   render() {
+    const { posts, searchText } = this.state;
     return (
       <>
         <GlobalStyle />
-        <SearchBar />
-        {this.state.posts && 
-          this.state.posts.map(e => (
+        <SearchBar searchCtrls={{ searchText, handleSearchText: this.handleSearchText }} />
+        {posts && 
+          posts.map(e => (
             <PostContainer
               {...e}
               key={e.id}
