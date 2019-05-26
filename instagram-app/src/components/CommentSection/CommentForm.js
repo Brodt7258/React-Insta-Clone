@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
+import PropTypes from 'prop-types';
 
 const CommentInput = styled.input`
   width: 100%;
@@ -29,6 +30,11 @@ const CommentForm = ({ handleAddComment, postId }) => {
       />
     </form>
   );
+};
+
+CommentForm.propTypes = {
+  handleAddComment: PropTypes.func.isRequired,
+  postId: PropTypes.string.isRequired
 };
 
 export default CommentForm;

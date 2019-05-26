@@ -54,7 +54,8 @@ CommentSection.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.object).isRequired,
   likes: PropTypes.number.isRequired,
   timestamp: PropTypes.string.isRequired,
-  handleAddComment: PropTypes.func
+  handleAddComment: PropTypes.func,
+  id: PropTypes.string.isRequired
 };
 
 export default CommentSection;
