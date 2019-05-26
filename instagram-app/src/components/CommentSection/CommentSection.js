@@ -33,7 +33,7 @@ const TimeStamp = styled.p`
   color: #777;
 `;
 
-const CommentSection = ({ comments, likes, timestamp, handleAddComment }) => {
+const CommentSection = ({ comments, likes, timestamp, handleAddComment, id }) => {
   return (
     <CommentsContainer>
       <Actions>
@@ -45,7 +45,7 @@ const CommentSection = ({ comments, likes, timestamp, handleAddComment }) => {
         <Comment {...e} key={e.id} />
       ))}
       <TimeStamp>{timestamp}</TimeStamp>
-      <CommentForm handleAddComment={handleAddComment} />
+      <CommentForm handleAddComment={handleAddComment} postId={id} />
     </CommentsContainer>
   );
 };

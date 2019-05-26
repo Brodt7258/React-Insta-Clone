@@ -4,8 +4,8 @@ import debounce from 'lodash/debounce';
 import Fuse from 'fuse.js';
 
 import dummyData from './dummy-data';
-import PostContainer from './components/PostContainer/PostContainer';
 import SearchBar from './components/SearchBar/SearchBar';
+import ContentList from './components/PostContainer/ContentList';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -33,6 +33,7 @@ class App extends Component {
   state = {
     posts: [],
     searchText: '',
+    debouncedText: '',
     searchResults: [],
   };
 
@@ -42,7 +43,7 @@ class App extends Component {
     });
   }
 
-  addComment = (postId) => (commentText) => {
+  addComment = (postId, commentText) => {
     const newComment = {
       id: `${Date.now()}`,
       username: 'testAccount',
@@ -60,7 +61,15 @@ class App extends Component {
   }
 
   searchHandler = debounce(() => {
-    const { posts } = this.state;
+    const { posts, searchText } = this.state;
+
+    if (!searchText) {
+      this.setState({ 
+        debouncedText: searchText,
+        searchResults: []
+      });
+      return;
+    }
 
     const options = {
       threshold: 0.4,
@@ -70,15 +79,8 @@ class App extends Component {
     };
 
     const fuse = new Fuse(posts, options);
-
-    // const result = fuse.search('phil');
-
-    // console.log(result);
-    // this.setState(state => ({
-    //   debounceFired: state.debounceFired + 1
-    // }))
-
     this.setState(({ searchText }) => ({
+      debouncedText: searchText,
       searchResults: fuse.search(searchText)
     }));
   }, 1000)
@@ -92,24 +94,16 @@ class App extends Component {
   }
 
   render() {
-    const { posts, searchText } = this.state;
+    const { posts, searchText, searchResults, debouncedText } = this.state;
+    const { handleSearchText, addComment: handleAddComment } = this;
     return (
       <>
         <GlobalStyle />
-        <SearchBar searchCtrls={{ searchText, handleSearchText: this.handleSearchText }} />
-        {posts && 
-          posts.map(e => (
-            <PostContainer
-              {...e}
-              key={e.id}
-              handleAddComment={this.addComment(e.id)}
-            />
-          ))
-        }
+        <SearchBar searchCtrls={{ searchText, handleSearchText }} />
+        <ContentList {...{ posts, searchText: debouncedText, searchResults, handleAddComment }} />
       </>
     );
   }
-  
 };
 
 export default App;

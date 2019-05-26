@@ -10,17 +10,17 @@ const CommentInput = styled.input`
   font-size: 1.05em;
 `;
 
-const CommentForm = ({ handleAddComment }) => {
+const CommentForm = ({ handleAddComment, postId }) => {
   const [commentText, setCommentText] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(commentText);
-    handleAddComment(commentText);
+    handleAddComment(postId, commentText);
+    setCommentText('');
   }
 
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form name="Add Comment" onSubmit={handleSubmit}>
       <CommentInput
         type="text"
         placeholder="Add a comment..."

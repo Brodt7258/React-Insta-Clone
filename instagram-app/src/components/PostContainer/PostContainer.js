@@ -15,11 +15,11 @@ const Container = styled.section`
   background-color: white;
 `;
 
-const PostContainer = ({ comments, likes, timestamp, handleAddComment, ...post }) => {
+const PostContainer = ({ comments, likes, timestamp, handleAddComment, id, ...post }) => {
   return (
     <Container>
-      <Post {...post} />
-      <CommentSection {...{ comments, likes, timestamp, handleAddComment }} />
+      <Post {...post} id={id} />
+      <CommentSection {...{ comments, likes, timestamp, handleAddComment, id }} />
     </Container>
   );
 };
