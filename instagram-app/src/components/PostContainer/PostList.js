@@ -4,10 +4,10 @@ import PostContainer from './PostContainer';
 import withEither from '../../utils/withEither';
 import NoContent from './NoContent';
 
-const SearchList = withEither(
-  props => !props.searchResults.length,
-  () => <NoContent text="No posts matched your search" />
-)((props) => props.searchResults.map(e => {
+const PostList = withEither(
+  props => !props.posts.length,
+  () => <NoContent text="There are no posts in your feed" />
+)((props) => props.posts.map(e => {
     return (
       <PostContainer
         {...e}
@@ -18,4 +18,4 @@ const SearchList = withEither(
   })
 );
 
-export default SearchList;
+export default PostList;

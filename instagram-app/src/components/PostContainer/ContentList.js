@@ -1,26 +1,12 @@
 import React from 'react';
 
-import PostContainer from './PostContainer';
 import SearchList from './SearchList';
+import PostList from './PostList';
 
 const ContentList = ({ searchText, posts, searchResults, handleAddComment }) => {
   return searchText.length
   ? <SearchList {...{searchResults, handleAddComment}} />
-  : posts.map(e => (
-    <PostContainer
-      {...e}
-      key={e.id}
-      handleAddComment={handleAddComment}
-    />
-  ));
+  : <PostList {...{posts, handleAddComment}} />
 };
 
 export default ContentList;
-
-// searchResults.map(e => (
-//     <PostContainer
-//       {...e}
-//       key={e.id}
-//       handleAddComment={handleAddComment(e.id)}
-//     />
-//   ))
