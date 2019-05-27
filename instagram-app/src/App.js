@@ -53,7 +53,20 @@ class App extends Component {
     this.setState(prevState => {
       const postIndex = prevState.posts.findIndex(e => e.id === postId);
       const newPosts = [ ...prevState.posts ];
+      newPosts[postIndex] = { ...prevState.posts[postIndex] }
       newPosts[postIndex].comments = [ ...newPosts[postIndex].comments, newComment ];
+      return {
+        posts: newPosts
+      };
+    });
+  }
+
+  addLike = (postId) => () => {
+    this.setState(prevState => {
+      const postIndex = prevState.posts.findIndex(e => e.id === postId);
+      const newPosts = [ ...prevState.posts ];
+      newPosts[postIndex] = { ...prevState.posts[postIndex] };
+      newPosts[postIndex].likes = prevState.posts[postIndex].likes + 1;
       return {
         posts: newPosts
       };
@@ -95,12 +108,12 @@ class App extends Component {
 
   render() {
     const { posts, searchText, searchResults, debouncedText } = this.state;
-    const { handleSearchText, addComment: handleAddComment } = this;
+    const { handleSearchText, addComment: handleAddComment, addLike: handleAddLike } = this;
     return (
       <>
         <GlobalStyle />
         <SearchBar searchCtrls={{ searchText, handleSearchText }} />
-        <ContentList {...{ posts, searchText: debouncedText, searchResults, handleAddComment }} />
+        <ContentList {...{ posts, searchText: debouncedText, searchResults, handleAddComment, handleAddLike }} />
       </>
     );
   }

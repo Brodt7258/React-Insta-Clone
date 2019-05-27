@@ -33,11 +33,11 @@ const TimeStamp = styled.p`
   color: #777;
 `;
 
-const CommentSection = ({ comments, likes, timestamp, handleAddComment, id }) => {
+const CommentSection = ({ comments, likes, timestamp, handleAddComment, id, handleAddLike }) => {
   return (
     <CommentsContainer>
       <Actions>
-        <Heart />
+        <Heart onClick={handleAddLike(id)} />
         <MessageRounded />
       </Actions>
       <Likes>{likes} likes</Likes>
@@ -55,7 +55,8 @@ CommentSection.propTypes = {
   likes: PropTypes.number.isRequired,
   timestamp: PropTypes.string.isRequired,
   handleAddComment: PropTypes.func,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
+  handleAddLike: PropTypes.func.isRequired
 };
 
 export default CommentSection;

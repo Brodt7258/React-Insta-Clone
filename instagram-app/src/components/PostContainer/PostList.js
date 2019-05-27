@@ -13,6 +13,7 @@ const PostList = withEither(
         {...e}
         key={e.id}
         handleAddComment={props.handleAddComment}
+        handleAddLike={props.handleAddLike}
       />
     );
   })
