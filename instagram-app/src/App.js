@@ -6,6 +6,7 @@ import Fuse from 'fuse.js';
 import dummyData from './dummy-data';
 import SearchBar from './components/SearchBar/SearchBar';
 import ContentList from './components/PostContainer/ContentList';
+import { insta_key, getStorage, checkStorage, updateStorage } from './utils/localStorage';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -39,7 +40,9 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({
-      posts: dummyData
+      posts: checkStorage(insta_key)
+      ? getStorage(insta_key)
+      : dummyData
     });
   }
 
@@ -58,6 +61,8 @@ class App extends Component {
       return {
         posts: newPosts
       };
+    }, () => {
+      updateStorage(insta_key, this.state.posts);
     });
   }
 
@@ -70,6 +75,8 @@ class App extends Component {
       return {
         posts: newPosts
       };
+    }, () => {
+      updateStorage(insta_key, this.state.posts);
     });
   }
 
